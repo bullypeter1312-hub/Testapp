@@ -20,6 +20,13 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Super-resolution service
+
+The server-side super-resolution implementation lives in `lib/server/super-resolution/realEsrgan.ts` and uses `@xenova/transformers` + `onnxruntime-node`.
+
+- Pipelines are cached in-memory per Node.js process so model weights are loaded once and reused across requests.
+- Real-ESRGAN is memory hungry (output pixels grow by `scale^2`), so inputs are normalised via `sharp` and capped to 4096×4096 pixels by default.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
